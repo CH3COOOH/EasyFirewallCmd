@@ -5,9 +5,11 @@ class Wrapper:
 		self.cmd_base = 'firewall-cmd%s --direct' % ({True: ' --permanent', False: ''}[permanent])
 
 	def parse_access(self, row_array):
+		if row_array[0] == 'P':
+			return 'echo Skip.'
 		cmd_complete = self.cmd_base
 
-		cmd_complete += {'A':' --add-rule', '-D': ' --remove-rule'}[row_array[0]]
+		cmd_complete += {'A':' --add-rule', 'D': ' --remove-rule'}[row_array[0]]
 		cmd_complete += ' ' + row_array[1]
 		cmd_complete += (' filter ' + row_array[2])
 		cmd_complete += ' ' + row_array[3]
