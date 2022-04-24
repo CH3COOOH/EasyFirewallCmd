@@ -41,6 +41,7 @@ def main():
 			'2': 'Show details of all zones',
 			'3': 'Change the zone of an interface...',
 			'4': 'Edit policy of a specific zone...',
+			'5': 'Show direct rules',
 			'q': 'Exit'
 			}
 	mainMenu = Menu(dic_mainMenu)
@@ -122,7 +123,11 @@ def main():
 				
 				if ch == '6':
 					fc.serviceDisable(zo, input('Disable service: '))
-
+		
+		if ch == '5':
+			print('Direct rules:')
+			fc.getDirectRules()
+			print('\n')
 
 if __name__ == '__main__':
 	main()

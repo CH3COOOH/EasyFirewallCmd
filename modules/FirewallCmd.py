@@ -8,6 +8,10 @@ class FirewallCmd:
 	def printCmd(self, cmd):
 		print('Execute **********\n' + cmd + '\n******************') 
 	
+	def getDirectRules(self):
+		os.system('firewall-cmd --direct --get-all-rules')
+		return 0
+	
 	def getFwStatus(self):
 		os.system('firewall-cmd --state')
 		print('* If firewalld seems unavailable, run \"systemctl start firewalld\" first.')
