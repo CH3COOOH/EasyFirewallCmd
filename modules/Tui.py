@@ -79,8 +79,9 @@ def main():
 					'2': 'Close a port...',
 					'3': 'Set default action...',
 					'4': 'Add an interface into the zone...',
-					'5': 'Enable a service...',
-					'6': 'Disable a service...',
+					'5': 'Remove an interface from the zone...',
+					'6': 'Enable a service...',
+					'7': 'Disable a service...',
 					'b': 'Back to homepage',
 					'q': 'Exit'
 					})
@@ -117,11 +118,14 @@ def main():
 				
 				if ch == '4':
 					fc.changeZoneOfInterface(input('Which interface: '), zo)
-				
+
 				if ch == '5':
-					fc.serviceEnable(zo, input('Enable service: '))
+					fc.removeInterfaceFromZone(input('Which interface: '), zo)
 				
 				if ch == '6':
+					fc.serviceEnable(zo, input('Enable service: '))
+				
+				if ch == '7':
 					fc.serviceDisable(zo, input('Disable service: '))
 		
 		if ch == '5':

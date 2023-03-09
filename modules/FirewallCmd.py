@@ -41,6 +41,15 @@ systemctl restart firewalld.service''' % (zone, inf)
 		if self.exec == True:
 			os.system(cmd)
 		return 0
+
+	def removeInterfaceFromZone(self, inf, zone):
+		cmd = '''firewall-cmd --zone=%s --remove-interface=%s --permanent
+firewall-cmd --reload
+systemctl restart firewalld.service''' % (zone, inf)
+		self.printCmd(cmd)
+		if self.exec == True:
+			os.system(cmd)
+		return 0
 	
 	def portOpen(self, zone, s_port):
 		cmd = '''firewall-cmd --zone=%s --add-port=%s --permanent

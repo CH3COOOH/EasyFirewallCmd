@@ -6,7 +6,8 @@ import modules.FormWrapper
 
 
 if __name__ == '__main__':
-	
+	print('Enter TUI mode without parameters, or use:')
+	print('efc -c <rule.xlsx> -t <ACCESS | NAT> [-p (--permanent)]')
 	if len(sys.argv) == 1:
 		modules.Tui.main()
 	else:
