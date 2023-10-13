@@ -42,6 +42,7 @@ def main():
 			'3': 'Change the zone of an interface...',
 			'4': 'Edit policy of a specific zone...',
 			'5': 'Show direct rules',
+			'6': 'Redirect',
 			'q': 'Exit'
 			}
 	mainMenu = Menu(dic_mainMenu)
@@ -132,6 +133,23 @@ def main():
 			print('Direct rules:')
 			fc.getDirectRules()
 			print('\n')
+
+		if ch == '6':
+			subMenuAddOrDel = Menu({
+						'1': 'Add a rule',
+						'2': 'Remove a rule',
+						'b': 'Back to homepage'
+						})
+			subMenuAddOrDel.setPrompt('Choice > ')
+			subMenuAddOrDel.print()
+			ch = subMenuAddOrDel.getInput()
+			if ch == 'b':
+				break
+			redirect_info = input('Redirect rule (ex. tcp/192.168.1.1:80/192.168.1.2:8080, ...):\n')
+			pr, src, des = redirect_info.split('/')
+			si, sp = src.split(':')
+			di, dp = des.split(':')
+			fc.direct_redirect(pr, si, sp, di, dp, isAdd={'1':True, '2':False}[ch])
 
 if __name__ == '__main__':
 	main()

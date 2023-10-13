@@ -92,3 +92,14 @@ firewall-cmd --reload''' % (zone, service)
 		if self.exec == True:
 			os.system(cmd)
 		return 0
+
+	def direct_redirect(self, pr, si, sp, di, dp, isAdd=True):
+		## protocol, src_ip, src_port, des_ip, des_port
+		rule_cmd = {True: 'add', False: 'remove'}
+		cmd = f'''firewall-cmd --permanent --direct --{rule_cmd[isAdd]}-rule ipv4 nat PREROUTING 0 -p {pr} -d {si} --dport {sp} -j DNAT --to-destination {di}:{dp}
+firewall-cmd --permanent --direct --{rule_cmd[isAdd]}-rule ipv4 nat POSTROUTING 0 -p {pr} -d {di} --dport {dp} -j MASQUERADE
+firewall-cmd --reload'''
+		self.printCmd(cmd)
+		if self.exec == True:
+			os.system(cmd)
+		return 0
