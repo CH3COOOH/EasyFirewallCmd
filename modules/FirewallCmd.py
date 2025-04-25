@@ -34,34 +34,34 @@ class FirewallCmd:
 		os.system('firewall-cmd --zone=%s --list-interfaces' % zone)
 	
 	def changeZoneOfInterface(self, inf, zone):
-		cmd = '''firewall-cmd --zone=%s --change-interface=%s --permanent
-firewall-cmd --reload
-systemctl restart firewalld.service''' % (zone, inf)
+		cmd = f'''firewall-cmd --zone={zone} --change-interface={inf} --permanent'''
+# firewall-cmd --reload
+# systemctl restart firewalld.service''' % (zone, inf)
 		self.printCmd(cmd)
 		if self.exec == True:
 			os.system(cmd)
 		return 0
 
 	def removeInterfaceFromZone(self, inf, zone):
-		cmd = '''firewall-cmd --zone=%s --remove-interface=%s --permanent
-firewall-cmd --reload
-systemctl restart firewalld.service''' % (zone, inf)
+		cmd = f'''firewall-cmd --zone={zone} --remove-interface={inf} --permanent'''
+# firewall-cmd --reload
+# systemctl restart firewalld.service''' % (zone, inf)
 		self.printCmd(cmd)
 		if self.exec == True:
 			os.system(cmd)
 		return 0
 	
 	def portOpen(self, zone, s_port):
-		cmd = '''firewall-cmd --zone=%s --add-port=%s --permanent
-firewall-cmd --reload''' % (zone, s_port)
+		cmd = f'''firewall-cmd --zone={zone} --add-port={s_port} --permanent'''
+# firewall-cmd --reload''' % (zone, s_port)
 		self.printCmd(cmd)
 		if self.exec == True:
 			os.system(cmd)
 		return 0
 	
 	def portClose(self, zone, s_port):
-		cmd = '''firewall-cmd --zone=%s --remove-port=%s --permanent
-firewall-cmd --reload''' % (zone, s_port)
+		cmd = f'''firewall-cmd --zone={zone} --remove-port={s_port} --permanent'''
+# firewall-cmd --reload''' % (zone, s_port)
 		self.printCmd(cmd)
 		if self.exec == True:
 			os.system(cmd)
@@ -69,25 +69,25 @@ firewall-cmd --reload''' % (zone, s_port)
 	
 	def setDefaultAction(self, zone, action):
 		## firewall-cmd --zone=%s --set-target=<default|ACCEPT|REJECT|DROP>
-		cmd = '''firewall-cmd --zone=%s --set-target=%s --permanent
-firewall-cmd --reload''' % (zone, action)
+		cmd = f'''firewall-cmd --zone={zone} --set-target={action} --permanent'''
+# firewall-cmd --reload''' % (zone, action)
 		self.printCmd(cmd)
 		if self.exec == True:
 			os.system(cmd)
 		return 0
 	
 	def serviceEnable(self, zone, service):
-		cmd = '''firewall-cmd --zone=%s --add-service=%s --permanent
-firewall-cmd --reload
-''' % (zone, service)
+		cmd = f'''firewall-cmd --zone={zone} --add-service={service} --permanent'''
+# firewall-cmd --reload
+# ''' % (zone, service)
 		self.printCmd(cmd)
 		if self.exec == True:
 			os.system(cmd)
 		return 0
 	
 	def serviceDisable(self, zone, service):
-		cmd = '''firewall-cmd --zone=%s --remove-service=%s --permanent
-firewall-cmd --reload''' % (zone, service)
+		cmd = f'''firewall-cmd --zone={zone} --remove-service={service} --permanent'''
+# firewall-cmd --reload''' % (zone, service)
 		self.printCmd(cmd)
 		if self.exec == True:
 			os.system(cmd)
@@ -97,8 +97,8 @@ firewall-cmd --reload''' % (zone, service)
 		## protocol, src_ip, src_port, des_ip, des_port
 		rule_cmd = {True: 'add', False: 'remove'}
 		cmd = f'''firewall-cmd --permanent --direct --{rule_cmd[isAdd]}-rule ipv4 nat PREROUTING 0 -p {pr} -d {si} --dport {sp} -j DNAT --to-destination {di}:{dp}
-firewall-cmd --permanent --direct --{rule_cmd[isAdd]}-rule ipv4 nat POSTROUTING 0 -p {pr} -d {di} --dport {dp} -j MASQUERADE
-firewall-cmd --reload'''
+firewall-cmd --permanent --direct --{rule_cmd[isAdd]}-rule ipv4 nat POSTROUTING 0 -p {pr} -d {di} --dport {dp} -j MASQUERADE'''
+# firewall-cmd --reload'''
 		self.printCmd(cmd)
 		if self.exec == True:
 			os.system(cmd)
